@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  background-image:
+    linear-gradient(rgba(255,200,220,0.45), rgba(255,200,220,0.45)),
+    url("/bg-salonease.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
+  background-attachment: fixed;
+}
