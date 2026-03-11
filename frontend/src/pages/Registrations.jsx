@@ -16,7 +16,7 @@ export default function Registrations() {
   const [phone,setPhone] = useState("");
   const [email,setEmail] = useState("");
   const [category,setCategory] = useState("Makeup");
-  const [course,setCourse] = useState("Basic Makeup");
+  const [course,setCourse] = useState("");
   const [image,setImage] = useState("");
 
   const [search,setSearch] = useState("");
@@ -24,10 +24,16 @@ export default function Registrations() {
   const [editingId,setEditingId] = useState(null);
   const [editData,setEditData] = useState({});
 
+  const API = "https://salonease-backend-qn1t.onrender.com";
+
   const fetchRegistrations = () => {
-    fetch("https://salonease-backend-qn1t.onrender.com/registrations")
-      .then(res => res.json())
-      .then(data => setList(data || []));
+    fetch(`${API}/registrations`)
+      .then(res => {
+        if(!res.ok) throw new Error("Failed to fetch registrations");
+        return res.json();
+      })
+      .then(data => setList(data || []))
+      .catch(err => console.error("Fetch error:",err));
   };
 
   useEffect(()=>{ fetchRegistrations(); },[]);
@@ -39,7 +45,7 @@ export default function Registrations() {
       return;
     }
 
-    fetch("https://salonease-backend-qn1t.onrender.com/registrations/add",{
+    fetch(`${API}/registrations/add`,{
       method:"POST",
       headers:{
         "Content-Type":"application/json"
@@ -53,7 +59,10 @@ export default function Registrations() {
         image
       })
     })
-    .then(res=>res.json())
+    .then(res=>{
+      if(!res.ok) throw new Error("Failed to add registration");
+      return res.json();
+    })
     .then(()=>{
       setName("");
       setPhone("");
@@ -61,16 +70,21 @@ export default function Registrations() {
       setCourse("");
       setImage("");
       fetchRegistrations();
-    });
+    })
+    .catch(err=>console.error("Add error:",err));
 
   };
 
   const deleteRegistration = (id)=>{
-    fetch(`https://salonease-backend-qn1t.onrender.com/registrations/${id}`,{
+    fetch(`${API}/registrations/${id}`,{
       method:"DELETE"
     })
-    .then(res=>res.json())
-    .then(fetchRegistrations);
+    .then(res=>{
+      if(!res.ok) throw new Error("Delete failed");
+      return res.json();
+    })
+    .then(fetchRegistrations)
+    .catch(err=>console.error("Delete error:",err));
   };
 
   const startEdit = (r)=>{
@@ -79,18 +93,22 @@ export default function Registrations() {
   };
 
   const saveEdit = ()=>{
-    fetch(`https://salonease-backend-qn1t.onrender.com/registrations/${editingId}`,{
+    fetch(`${API}/registrations/${editingId}`,{
       method:"PUT",
       headers:{
         "Content-Type":"application/json"
       },
       body:JSON.stringify(editData)
     })
-    .then(res=>res.json())
+    .then(res=>{
+      if(!res.ok) throw new Error("Update failed");
+      return res.json();
+    })
     .then(()=>{
       setEditingId(null);
       fetchRegistrations();
-    });
+    })
+    .catch(err=>console.error("Update error:",err));
   };
 
   const filtered = list.filter(r =>
@@ -123,17 +141,6 @@ export default function Registrations() {
             cursor:"pointer",
             boxShadow:"0 8px 20px rgba(0,0,0,0.15)"
           }}
-
-          onMouseEnter={(e)=>{
-            e.currentTarget.style.transform="translateY(-6px) scale(1.02)";
-            e.currentTarget.style.boxShadow="0 14px 28px rgba(0,0,0,0.22)";
-          }}
-
-          onMouseLeave={(e)=>{
-            e.currentTarget.style.transform="translateY(0px)";
-            e.currentTarget.style.boxShadow="0 8px 20px rgba(0,0,0,0.15)";
-          }}
-
         >
 
         {isEditing ? (
