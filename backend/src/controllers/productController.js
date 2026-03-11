@@ -36,10 +36,13 @@ exports.getProducts = async (req, res) => {
 
     const products = await Product.find().sort({ createdAt: -1 });
 
+    console.log("Products fetched:", products.length);
+
     res.json(products);
 
   } catch (err) {
 
+    console.log("GET PRODUCTS ERROR:", err);
     res.status(500).json(err);
 
   }
