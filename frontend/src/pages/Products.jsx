@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const API = "https://salonease-backend-qn1t.onrender.com";
+
 export default function Products() {
   const navigate = useNavigate();
 
@@ -22,7 +24,7 @@ export default function Products() {
   const [editData, setEditData] = useState({});
 
   const fetchProducts = () => {
-    fetch("http://localhost:5000/products")
+    fetch(`${API}/products`)
       .then(res => res.json())
       .then(data => setProducts(data || []));
   };
@@ -38,7 +40,7 @@ export default function Products() {
       return;
     }
 
-    fetch("http://localhost:5000/products/add", {
+    fetch(`${API}/products/add`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -63,7 +65,7 @@ export default function Products() {
   };
 
   const deleteProduct = (id) => {
-    fetch(`http://localhost:5000/products/${id}`, {
+    fetch(`${API}/products/${id}`, {
       method: "DELETE"
     })
       .then(res => res.json())
@@ -77,7 +79,7 @@ export default function Products() {
 
   const saveEdit = () => {
 
-    fetch(`http://localhost:5000/products/${editingId}`, {
+    fetch(`${API}/products/${editingId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"

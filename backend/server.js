@@ -30,7 +30,7 @@ app.use("/auth", authRoutes); // ← IMPORTANT
 
 /* DATABASE */
 mongoose
-  .connect("mongodb+srv://shreyald69_db_user:3jZQ4v2rKNL8lDr8@saloneasecluster.lqy4k0o.mongodb.net/salonease")
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Atlas Connected"))
   .catch((err) => console.log("DB Error:", err));
 

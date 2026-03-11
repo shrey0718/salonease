@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const API = "https://salonease-backend-qn1t.onrender.com";
+
 export default function Staff() {
 
   const navigate = useNavigate();
@@ -21,8 +23,6 @@ export default function Staff() {
   const [editingId,setEditingId] = useState(null);
   const [editData,setEditData] = useState({});
 
-  /* ROLE EMOJI MAP */
-
   const roleEmoji = {
     "All-Rounder Expert (Owner)": "👑",
     "Makeup Artist": "💄",
@@ -32,11 +32,9 @@ export default function Staff() {
     "Receptionist": "📞"
   };
 
-
-
   const fetchStaff = () => {
 
-    fetch("http://localhost:5000/staff")
+    fetch(`${API}/staff`)
       .then(res=>res.json())
       .then(data=>setStaff(data));
 
@@ -46,13 +44,11 @@ export default function Staff() {
     fetchStaff();
   },[]);
 
-
-
   const addStaff = () => {
 
     if(!name || !phone) return;
 
-    fetch("http://localhost:5000/staff/add",{
+    fetch(`${API}/staff/add`,{
       method:"POST",
       headers:{
         "Content-Type":"application/json"
@@ -75,19 +71,15 @@ export default function Staff() {
 
   };
 
-
-
   const deleteStaff = (id) => {
 
-    fetch(`http://localhost:5000/staff/${id}`,{
+    fetch(`${API}/staff/${id}`,{
       method:"DELETE"
     })
       .then(res=>res.json())
       .then(fetchStaff);
 
   };
-
-
 
   const startEdit = (member) => {
 
@@ -96,11 +88,9 @@ export default function Staff() {
 
   };
 
-
-
   const saveEdit = () => {
 
-    fetch(`http://localhost:5000/staff/${editingId}`,{
+    fetch(`${API}/staff/${editingId}`,{
       method:"PUT",
       headers:{
         "Content-Type":"application/json"
@@ -114,8 +104,6 @@ export default function Staff() {
       });
 
   };
-
-
 
   const renderCard = (member) => {
 
@@ -248,8 +236,6 @@ export default function Staff() {
 
   };
 
-
-
   return (
 
     <div style={{minHeight:"100vh",background:"#f3b3b6",paddingTop:"70px"}}>
@@ -265,8 +251,6 @@ export default function Staff() {
         <p style={{fontSize:"30px",fontWeight:"700",color:"white",marginBottom:"20px"}}>
           Staff Management
         </p>
-
-
 
         <div
           style={{
@@ -329,8 +313,6 @@ export default function Staff() {
         </button>
 
         </div>
-
-
 
         <div className="row">
           {staff.map(renderCard)}
