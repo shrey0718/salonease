@@ -19,14 +19,30 @@ export default function Analytics() {
   const [productLeads, setProductLeads] = useState([]);
   const [classLeads, setClassLeads] = useState([]);
 
-  useEffect(() => {
-    fetch("https://salonease-backend-qn1t.onrender.com/product-leads")
-      .then(res => res.json())
-      .then(data => setProductLeads(data));
+  const API = "https://salonease-backend-qn1t.onrender.com";
 
-    fetch("https://salonease-backend-qn1t.onrender.com/class-leads")
+  const fetchData = () => {
+
+    fetch(`${API}/product-leads?time=` + Date.now())
       .then(res => res.json())
-      .then(data => setClassLeads(data));
+      .then(data => setProductLeads(data || []))
+      .catch(() => setProductLeads([]));
+
+    fetch(`${API}/class-leads?time=` + Date.now())
+      .then(res => res.json())
+      .then(data => setClassLeads(data || []))
+      .catch(() => setClassLeads([]));
+
+  };
+
+  useEffect(() => {
+
+    fetchData();
+
+    const interval = setInterval(fetchData, 5000);
+
+    return () => clearInterval(interval);
+
   }, []);
 
   // PRODUCT DEMAND
@@ -34,6 +50,7 @@ export default function Analytics() {
   productLeads.forEach(l => {
     productCountMap[l.product] = (productCountMap[l.product] || 0) + 1;
   });
+
   const productChartData = Object.keys(productCountMap).map(key => ({
     name: key,
     count: productCountMap[key]
@@ -44,6 +61,7 @@ export default function Analytics() {
   classLeads.forEach(l => {
     classCountMap[l.course] = (classCountMap[l.course] || 0) + 1;
   });
+
   const classChartData = Object.keys(classCountMap).map(key => ({
     name: key,
     count: classCountMap[key]
@@ -51,6 +69,7 @@ export default function Analytics() {
 
   // STATUS PIE
   const statusMap = { Interested: 0, Ordered: 0, Delivered: 0 };
+
   productLeads.forEach(l => {
     if (statusMap[l.status] !== undefined) statusMap[l.status]++;
   });
@@ -68,14 +87,22 @@ export default function Analytics() {
   };
 
   // CARDS DATA
-  const mostPopularProduct = productChartData.sort((a,b)=>b.count-a.count)[0]?.name || "-";
-  const mostPopularClass = classChartData.sort((a,b)=>b.count-a.count)[0]?.name || "-";
+  const mostPopularProduct =
+    productChartData.sort((a, b) => b.count - a.count)[0]?.name || "-";
+
+  const mostPopularClass =
+    classChartData.sort((a, b) => b.count - a.count)[0]?.name || "-";
 
   const totalLeads = productLeads.length;
+
   const totalOrdered = productLeads.filter(l => l.status === "Ordered").length;
-  const conversionRate = totalLeads ? ((totalOrdered/totalLeads)*100).toFixed(1) : 0;
+
+  const conversionRate = totalLeads
+    ? ((totalOrdered / totalLeads) * 100).toFixed(1)
+    : 0;
 
   const todayStr = new Date().toDateString();
+
   const leadsToday = productLeads.filter(l =>
     new Date(l.date).toDateString() === todayStr
   ).length;
