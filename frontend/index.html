@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
 
-    <!-- MOBILE VIEWPORT FIX -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- MOBILE FIX -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>SalonEase</title>
 
@@ -12,10 +12,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Cursive font for "SalonEase" -->
+    <!-- Cursive font -->
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 
-    <!-- Elegant + clean fonts -->
+    <!-- Elegant fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
       rel="stylesheet"
@@ -27,39 +27,67 @@
       rel="stylesheet"
     />
 
-    <!-- BACKGROUND IMAGE STYLE -->
+    <!-- GLOBAL MOBILE SAFE STYLES -->
     <style>
+
       html, body {
         margin: 0;
         padding: 0;
         min-height: 100vh;
-        overflow-x: hidden; /* prevents sideways scroll on mobile */
+        width: 100%;
         background-image: url("/bg-salonease.png");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
       }
 
-      /* Improve text readability on small screens */
-      @media (max-width: 768px) {
-        h1 span {
-          font-size: 42px !important;
-        }
+      /* Prevent elements from exceeding screen */
+      img, video, canvas {
+        max-width: 100%;
+        height: auto;
       }
+
+      /* Make charts responsive */
+      .recharts-wrapper {
+        width: 100% !important;
+      }
+
+      /* Improve text scaling on small screens */
+      @media (max-width: 768px) {
+
+        body {
+          font-size: 14px;
+        }
+
+        h1 span {
+          font-size: 40px !important;
+        }
+
+        .container,
+        .row {
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+        }
+
+      }
+
     </style>
+
   </head>
 
   <body>
+
     <div id="root"></div>
 
-    <!-- Mediapipe (Virtual Try On) -->
+    <!-- Mediapipe -->
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
 
     <!-- Razorpay -->
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
-    <!-- React Entry -->
+    <!-- React -->
     <script type="module" src="/src/main.jsx"></script>
+
   </body>
 </html>
