@@ -17,7 +17,7 @@ export default function ProductsPublic() {
   });
 
   useEffect(() => {
-    fetch("http://localhost:5000/products")
+    fetch("http://https://salonease-backend-qn1t.onrender.com/products")
       .then(res => res.json())
       .then(data => setProducts(data))
       .catch(err => console.log(err));
@@ -45,7 +45,7 @@ export default function ProductsPublic() {
       return;
     }
 
-    await fetch("http://localhost:5000/product-leads/add", {
+    await fetch("http://https://salonease-backend-qn1t.onrender.com/product-leads/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -237,7 +237,7 @@ function ReviewSection({ product }) {
 
   useEffect(() => {
 
-    fetch(`http://localhost:5000/reviews/${product._id}`)
+    fetch(`http://https://salonease-backend-qn1t.onrender.com/reviews/${product._id}`)
       .then(res => res.json())
       .then(data => setReviews(data))
       .catch(err => console.log(err));
@@ -252,7 +252,7 @@ function ReviewSection({ product }) {
       return;
     }
 
-    const res = await fetch("http://localhost:5000/reviews/add", {
+    const res = await fetch("http://https://salonease-backend-qn1t.onrender.com/reviews/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

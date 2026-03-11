@@ -99,7 +99,7 @@ export default function CheckoutPage() {
           };
 
           const res = await fetch(
-            "http://localhost:5000/product-leads/order",
+            "http://https://salonease-backend-qn1t.onrender.com/product-leads/order",
             {
               method: "POST",
               headers: {

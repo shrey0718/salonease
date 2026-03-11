@@ -81,7 +81,7 @@ export default function ClassesPublic() {
   const submitLead = async () => {
     if (!formData.name || !formData.phone) return alert("Fill details");
 
-    const res = await fetch("http://localhost:5000/class-leads/add", {
+    const res = await fetch("http://https://salonease-backend-qn1t.onrender.com/class-leads/add", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -102,7 +102,7 @@ export default function ClassesPublic() {
   };
 
   const openWhatsApp = async () => {
-    await fetch(`http://localhost:5000/class-leads/${leadId}`, {
+    await fetch(`http://https://salonease-backend-qn1t.onrender.com/class-leads/${leadId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status: "Registered" })

@@ -10,7 +10,7 @@ export default function ClassLeads() {
   const [status, setStatus] = useState("Interested");
 
   const fetchLeads = () => {
-    fetch("http://localhost:5000/class-leads")
+    fetch("http://https://salonease-backend-qn1t.onrender.com/class-leads")
       .then(res => res.json())
       .then(data => setLeads(data));
   };
@@ -20,7 +20,7 @@ export default function ClassLeads() {
   }, []);
 
   const addLead = () => {
-    fetch("http://localhost:5000/class-leads/add", {
+    fetch("http://https://salonease-backend-qn1t.onrender.com/class-leads/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -43,7 +43,7 @@ export default function ClassLeads() {
   };
 
   const deleteLead = (id) => {
-    fetch(`http://localhost:5000/class-leads/${id}`, {
+    fetch(`http://https://salonease-backend-qn1t.onrender.com/class-leads/${id}`, {
       method: "DELETE"
     })
       .then(res => res.json())
@@ -51,7 +51,7 @@ export default function ClassLeads() {
   };
 
   const updateStatus = (id, newStatus) => {
-    fetch(`http://localhost:5000/class-leads/${id}`, {
+    fetch(`http://https://salonease-backend-qn1t.onrender.com/class-leads/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"

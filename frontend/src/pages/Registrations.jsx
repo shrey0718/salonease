@@ -25,7 +25,7 @@ export default function Registrations() {
   const [editData,setEditData] = useState({});
 
   const fetchRegistrations = () => {
-    fetch("http://localhost:5000/registrations")
+    fetch("http://https://salonease-backend-qn1t.onrender.com/registrations")
       .then(res => res.json())
       .then(data => setList(data || []));
   };
@@ -39,7 +39,7 @@ export default function Registrations() {
       return;
     }
 
-    fetch("http://localhost:5000/registrations/add",{
+    fetch("http://https://salonease-backend-qn1t.onrender.com/registrations/add",{
       method:"POST",
       headers:{
         "Content-Type":"application/json"
@@ -66,7 +66,7 @@ export default function Registrations() {
   };
 
   const deleteRegistration = (id)=>{
-    fetch(`http://localhost:5000/registrations/${id}`,{
+    fetch(`http://https://salonease-backend-qn1t.onrender.com/registrations/${id}`,{
       method:"DELETE"
     })
     .then(res=>res.json())
@@ -79,7 +79,7 @@ export default function Registrations() {
   };
 
   const saveEdit = ()=>{
-    fetch(`http://localhost:5000/registrations/${editingId}`,{
+    fetch(`http://https://salonease-backend-qn1t.onrender.com/registrations/${editingId}`,{
       method:"PUT",
       headers:{
         "Content-Type":"application/json"
