@@ -26,7 +26,7 @@ export default function Login() {
     setLoading(true);
     setMessage("");
 
-    fetch("http://https://salonease-backend-qn1t.onrender.com/auth/login", {
+    fetch("https://salonease-backend-qn1t.onrender.com/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

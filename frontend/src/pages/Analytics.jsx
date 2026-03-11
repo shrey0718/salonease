@@ -20,11 +20,11 @@ export default function Analytics() {
   const [classLeads, setClassLeads] = useState([]);
 
   useEffect(() => {
-    fetch("http://https://salonease-backend-qn1t.onrender.com/product-leads")
+    fetch("https://salonease-backend-qn1t.onrender.com/product-leads")
       .then(res => res.json())
       .then(data => setProductLeads(data));
 
-    fetch("http://https://salonease-backend-qn1t.onrender.com/class-leads")
+    fetch("https://salonease-backend-qn1t.onrender.com/class-leads")
       .then(res => res.json())
       .then(data => setClassLeads(data));
   }, []);

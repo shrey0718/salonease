@@ -9,22 +9,22 @@ export default function Home() {
 
   const fetchCounts = () => {
 
-    fetch("http://https://salonease-backend-qn1t.onrender.com/customers/count?time=" + Date.now())
+    fetch("https://salonease-backend-qn1t.onrender.com/customers/count?time=" + Date.now())
       .then(res=>res.json())
       .then(data=>setCustomerCount(data.count))
       .catch(()=>setCustomerCount(0));
 
-    fetch("http://https://salonease-backend-qn1t.onrender.com/products/count?time=" + Date.now())
+    fetch("https://salonease-backend-qn1t.onrender.com/products/count?time=" + Date.now())
       .then(res=>res.json())
       .then(data=>setProductCount(data.count))
       .catch(()=>setProductCount(0));
 
-    fetch("http://https://salonease-backend-qn1t.onrender.com/registrations/count?time=" + Date.now())
+    fetch("https://salonease-backend-qn1t.onrender.com/registrations/count?time=" + Date.now())
       .then(res=>res.json())
       .then(data=>setRegistrationCount(data.count))
       .catch(()=>setRegistrationCount(0));
 
-    fetch("http://https://salonease-backend-qn1t.onrender.com/staff/count?time=" + Date.now())
+    fetch("https://salonease-backend-qn1t.onrender.com/staff/count?time=" + Date.now())
       .then(res=>res.json())
       .then(data=>setStaffCount(data.count))
       .catch(()=>setStaffCount(0));

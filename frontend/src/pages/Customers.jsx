@@ -11,7 +11,7 @@ export default function Customers() {
   const [editData, setEditData] = useState({});
 
   const fetchCustomers = () => {
-    fetch("http://https://salonease-backend-qn1t.onrender.com/customers")
+    fetch("https://salonease-backend-qn1t.onrender.com/customers")
       .then(res => res.json())
       .then(data => setCustomers(data));
   };
@@ -23,7 +23,7 @@ export default function Customers() {
   const addCustomer = () => {
     if (!name || !phone) return;
 
-    fetch("http://https://salonease-backend-qn1t.onrender.com/customers/add", {
+    fetch("https://salonease-backend-qn1t.onrender.com/customers/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -40,7 +40,7 @@ export default function Customers() {
   };
 
   const deleteCustomer = (id) => {
-    fetch(`http://https://salonease-backend-qn1t.onrender.com/customers/${id}`, {
+    fetch(`https://salonease-backend-qn1t.onrender.com/customers/${id}`, {
       method: "DELETE"
     })
       .then(res => res.json())
@@ -53,7 +53,7 @@ export default function Customers() {
   };
 
   const saveEdit = () => {
-    fetch(`http://https://salonease-backend-qn1t.onrender.com/customers/${editingId}`, {
+    fetch(`https://salonease-backend-qn1t.onrender.com/customers/${editingId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"

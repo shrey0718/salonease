@@ -32,7 +32,7 @@ export default function ProductLeads() {
 
     try {
 
-      const res = await fetch("http://https://salonease-backend-qn1t.onrender.com/product-leads/");
+      const res = await fetch("https://salonease-backend-qn1t.onrender.com/product-leads/");
       const data = await res.json();
 
       // sort newest first
@@ -70,7 +70,7 @@ export default function ProductLeads() {
 
   const addLead = () => {
 
-    fetch("http://https://salonease-backend-qn1t.onrender.com/product-leads/add", {
+    fetch("https://salonease-backend-qn1t.onrender.com/product-leads/add", {
 
       method: "POST",
 
@@ -105,7 +105,7 @@ export default function ProductLeads() {
 
   const deleteLead = (id) => {
 
-    fetch(`http://https://salonease-backend-qn1t.onrender.com/product-leads/${id}`, {
+    fetch(`https://salonease-backend-qn1t.onrender.com/product-leads/${id}`, {
       method: "DELETE"
     })
       .then(res => res.json())
@@ -118,7 +118,7 @@ export default function ProductLeads() {
 
   const updateStatus = (id, newStatus) => {
 
-    fetch(`http://https://salonease-backend-qn1t.onrender.com/product-leads/${id}`, {
+    fetch(`https://salonease-backend-qn1t.onrender.com/product-leads/${id}`, {
 
       method: "PUT",
 
