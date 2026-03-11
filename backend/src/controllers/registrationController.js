@@ -1,4 +1,5 @@
 const Registration = require("../models/Registration");
+const ClassLead = require("../models/ClassLead");
 
 
 /* ADD REGISTRATION */
@@ -19,6 +20,28 @@ exports.addRegistration = async (req, res) => {
     });
 
     await newRegistration.save();
+
+
+    /* ALSO CREATE CLASS LEAD (for tracking) */
+
+    const existingLead = await ClassLead.findOne({
+      phone,
+      course
+    });
+
+    if (!existingLead) {
+
+      const newLead = new ClassLead({
+        name,
+        phone,
+        category,
+        course,
+        status: "Completed"
+      });
+
+      await newLead.save();
+    }
+
 
     res.json({ message: "Registration saved successfully" });
 

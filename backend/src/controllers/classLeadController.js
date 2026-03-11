@@ -1,4 +1,7 @@
 const ClassLead = require("../models/ClassLead");
+const Registration = require("../models/Registration");
+
+/* ADD CLASS LEAD */
 
 exports.addClassLead = async (req, res) => {
   try {
@@ -13,12 +16,16 @@ exports.addClassLead = async (req, res) => {
     });
 
     await newLead.save();
+
     res.json({ message: "Class lead saved successfully" });
 
   } catch (err) {
     res.status(500).json(err);
   }
 };
+
+
+/* GET ALL LEADS */
 
 exports.getClassLeads = async (req, res) => {
   try {
@@ -29,15 +36,42 @@ exports.getClassLeads = async (req, res) => {
   }
 };
 
+
+/* UPDATE LEAD STATUS */
+
 exports.updateClassLeadStatus = async (req, res) => {
+
   try {
+
     const { status } = req.body;
 
-    await ClassLead.findByIdAndUpdate(
+    const lead = await ClassLead.findByIdAndUpdate(
       req.params.id,
       { status },
       { new: true }
     );
+
+    /* IMPORTANT LOGIC */
+
+    if (status === "Completed" || status === "Enrolled") {
+
+      const existing = await Registration.findOne({
+        phone: lead.phone,
+        course: lead.course
+      });
+
+      if (!existing) {
+
+        const newRegistration = new Registration({
+          name: lead.name,
+          phone: lead.phone,
+          category: lead.category,
+          course: lead.course
+        });
+
+        await newRegistration.save();
+      }
+    }
 
     res.json({ message: "Status updated" });
 
@@ -45,6 +79,9 @@ exports.updateClassLeadStatus = async (req, res) => {
     res.status(500).json(err);
   }
 };
+
+
+/* DELETE LEAD */
 
 exports.deleteClassLead = async (req, res) => {
   try {
@@ -54,6 +91,9 @@ exports.deleteClassLead = async (req, res) => {
     res.status(500).json(err);
   }
 };
+
+
+/* LEAD COUNT */
 
 exports.getClassLeadCount = async (req, res) => {
   try {
