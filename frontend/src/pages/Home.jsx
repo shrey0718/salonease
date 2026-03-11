@@ -2,39 +2,45 @@ import { useState, useEffect } from "react";
 
 export default function Home() {
 
+  const API = "https://salonease-backend-qn1t.onrender.com";
+
   const [customerCount,setCustomerCount] = useState(null);
   const [productCount,setProductCount] = useState(null);
   const [registrationCount,setRegistrationCount] = useState(null);
   const [staffCount,setStaffCount] = useState(null);
 
-  const fetchCounts = () => {
+  const fetchCounts = async () => {
 
-    fetch("https://salonease-backend-qn1t.onrender.com/customers/count?time=" + Date.now())
-      .then(res=>res.json())
-      .then(data=>setCustomerCount(data.count))
-      .catch(()=>setCustomerCount(0));
+    try {
 
-    fetch("https://salonease-backend-qn1t.onrender.com/products/count?time=" + Date.now())
-      .then(res=>res.json())
-      .then(data=>setProductCount(data.count))
-      .catch(()=>setProductCount(0));
+      const customers = await fetch(`${API}/customers/count`);
+      const products = await fetch(`${API}/products/count`);
+      const registrations = await fetch(`${API}/registrations/count`);
+      const staff = await fetch(`${API}/staff/count`);
 
-    fetch("https://salonease-backend-qn1t.onrender.com/registrations/count?time=" + Date.now())
-      .then(res=>res.json())
-      .then(data=>setRegistrationCount(data.count))
-      .catch(()=>setRegistrationCount(0));
+      const c = await customers.json();
+      const p = await products.json();
+      const r = await registrations.json();
+      const s = await staff.json();
 
-    fetch("https://salonease-backend-qn1t.onrender.com/staff/count?time=" + Date.now())
-      .then(res=>res.json())
-      .then(data=>setStaffCount(data.count))
-      .catch(()=>setStaffCount(0));
+      setCustomerCount(c.count || 0);
+      setProductCount(p.count || 0);
+      setRegistrationCount(r.count || 0);
+      setStaffCount(s.count || 0);
+
+    } catch(err) {
+
+      console.log("Dashboard fetch error:",err);
+
+    }
+
   };
 
   useEffect(()=>{
 
     fetchCounts();
 
-    const interval = setInterval(fetchCounts,3000);
+    const interval = setInterval(fetchCounts,5000);
 
     return ()=>clearInterval(interval);
 
@@ -126,6 +132,7 @@ export default function Home() {
           ))}
 
         </div>
+
       </div>
     </div>
   );
