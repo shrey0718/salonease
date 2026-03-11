@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* YOUR ORIGINAL BACKGROUND LOGIC (UNCHANGED) */
 body {
   margin: 0;
   min-height: 100vh;
@@ -15,104 +14,4 @@ body {
   background-position: center;
   background-repeat: repeat;
   background-attachment: fixed;
-}
-
-/* GLOBAL RESPONSIVE FIXES */
-
-* {
-  box-sizing: border-box;
-}
-
-html, body {
-  width: 100%;
-  overflow-x: hidden;
-}
-
-/* ROOT CONTAINER */
-#root {
-  width: 100%;
-  overflow-x: hidden;
-}
-
-/* FIX NAVBAR CUTTING */
-nav {
-  width: 100%;
-  flex-wrap: wrap;
-}
-
-/* BOOTSTRAP GRID FIX */
-.container,
-.row {
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* CARDS SHOULD NOT EXCEED SCREEN */
-.card,
-.col-md-4,
-.col-md-3 {
-  max-width: 100%;
-}
-
-/* MEDIA ELEMENTS */
-img,
-video,
-canvas {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* TRY-ON CAMERA FIX */
-video {
-  width: 100% !important;
-  height: auto !important;
-}
-
-/* BUTTON WRAP FIX */
-button {
-  max-width: 100%;
-  word-wrap: break-word;
-}
-
-/* FOOTER FIX */
-footer {
-  width: 100%;
-}
-
-/* MOBILE IMPROVEMENTS */
-
-@media (max-width: 768px) {
-
-  h1 span {
-    font-size: 42px !important;
-  }
-
-  h1 {
-    font-size: 28px;
-  }
-
-  p {
-    font-size: 14px;
-  }
-
-  /* STACK CARDS */
-  .row {
-    display: block;
-  }
-
-  .col-md-4,
-  .col-md-3 {
-    width: 100%;
-    margin-bottom: 15px;
-  }
-
-  /* NAVBAR BUTTON SIZE */
-  nav a,
-  nav button {
-    font-size: 12px;
-    padding: 6px 10px;
-  }
-
 }
