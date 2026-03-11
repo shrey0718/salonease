@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- MOBILE VIEWPORT FIX -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
     <title>SalonEase</title>
 
     <!-- Google Fonts -->
@@ -26,22 +29,37 @@
 
     <!-- BACKGROUND IMAGE STYLE -->
     <style>
-      body {
+      html, body {
         margin: 0;
+        padding: 0;
         min-height: 100vh;
+        overflow-x: hidden; /* prevents sideways scroll on mobile */
         background-image: url("/bg-salonease.png");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
+      }
+
+      /* Improve text readability on small screens */
+      @media (max-width: 768px) {
+        h1 span {
+          font-size: 42px !important;
+        }
       }
     </style>
   </head>
 
   <body>
     <div id="root"></div>
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+
+    <!-- Mediapipe (Virtual Try On) -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+
+    <!-- Razorpay -->
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-  <script type="module" src="/src/main.jsx"></script>
+
+    <!-- React Entry -->
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
