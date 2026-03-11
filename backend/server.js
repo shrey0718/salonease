@@ -29,11 +29,7 @@ app.use("/staff", staffRoutes);
 app.use("/auth", authRoutes); // ← IMPORTANT
 
 /* DATABASE */
-mongoose
-  .connect(process.env.MONGO_URI || "mongodb+srv://shreyald69_db_user:3jZQ4v2rKNL8lDr8@saloneasecluster.lqy4k0o.mongodb.net/salonease")
-  .then(() => console.log("MongoDB Atlas Connected"))
-  .catch((err) => console.log("DB Error:", err));
-
+https://salonease-backend-qn1t.onrender.com/products
 /* SERVER */
 const PORT = process.env.PORT || 5000;
 
