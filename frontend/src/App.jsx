@@ -39,36 +39,32 @@ export default function App() {
 
         <Routes>
 
-          {/* ROOT */}
+          {/* ---------- PUBLIC CUSTOMER SITE ---------- */}
           <Route path="/" element={<HomePublic />} />
           <Route path="/login" element={<Login />} />
 
-          {/* ADMIN */}
+          <Route path="/customer" element={<HomePublic />} />
+          <Route path="/customer/products" element={<ProductsPublic />} />
+          <Route path="/customer/classes" element={<ClassesPublic />} />
+          <Route path="/customer/tryon" element={<TryOnMediapipe />} />
+
+          <Route path="/customer/cart" element={<CartPage />} />
+          <Route path="/customer/checkout" element={<CheckoutPage />} />
+          <Route path="/customer/invoice" element={<InvoicePage />} />
+
+
+          {/* ---------- ADMIN PANEL ---------- */}
           <Route path="/dashboard" element={<Home />} />
           <Route path="/products" element={<Products />} />
           <Route path="/customers" element={<Customers />} />
           <Route path="/registrations" element={<Registrations />} />
+          <Route path="/staff" element={<Staff />} />
 
           <Route path="/admin/product-leads" element={<ProductLeads />} />
           <Route path="/admin/class-leads" element={<ClassLeads />} />
           <Route path="/admin/analytics" element={<Analytics />} />
 
-          <Route path="/staff" element={<Staff />} />
-
           <Route path="/tryon" element={<TryOn />} />
-
-          {/* CUSTOMER */}
-          <Route path="/customer" element={<HomePublic />} />
-          <Route path="/customer/products" element={<ProductsPublic />} />
-          <Route path="/customer/classes" element={<ClassesPublic />} />
-
-          {/* MEDIAPIPE TRYON */}
-          <Route path="/customer/tryon" element={<TryOnMediapipe />} />
-
-          {/* CART + CHECKOUT */}
-          <Route path="/customer/cart" element={<CartPage />} />
-          <Route path="/customer/checkout" element={<CheckoutPage />} />
-          <Route path="/customer/invoice" element={<InvoicePage />} />
 
         </Routes>
 

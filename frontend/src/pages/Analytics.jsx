@@ -140,17 +140,21 @@ export default function Analytics() {
           borderRadius: "20px",
           padding: "25px",
           marginBottom: "25px",
-          boxShadow: "0 8px 20px rgba(0,0,0,0.15)"
+          boxShadow: "0 8px 20px rgba(0,0,0,0.15)",
+          width: "100%",
+          overflowX: "auto"
         }}>
           <h5>📦 Product Demand</h5>
-          <ResponsiveContainer width="100%" height={280}>
-            <BarChart data={productChartData}>
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="count" />
-            </BarChart>
-          </ResponsiveContainer>
+          <div style={{ minWidth: "500px", height: "280px" }}>
+            <ResponsiveContainer width="99%" height="100%">
+              <BarChart data={productChartData}>
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="count" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
         {/* CLASS POPULARITY */}
@@ -159,17 +163,21 @@ export default function Analytics() {
           borderRadius: "20px",
           padding: "25px",
           marginBottom: "25px",
-          boxShadow: "0 8px 20px rgba(0,0,0,0.15)"
+          boxShadow: "0 8px 20px rgba(0,0,0,0.15)",
+          width: "100%",
+          overflowX: "auto"
         }}>
           <h5>🎓 Class Popularity</h5>
-          <ResponsiveContainer width="100%" height={280}>
-            <BarChart data={classChartData}>
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="count" />
-            </BarChart>
-          </ResponsiveContainer>
+          <div style={{ minWidth: "500px", height: "280px" }}>
+            <ResponsiveContainer width="99%" height="100%">
+              <BarChart data={classChartData}>
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="count" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
         {/* STATUS PIE */}
@@ -177,34 +185,38 @@ export default function Analytics() {
           background: "#fdebed",
           borderRadius: "20px",
           padding: "25px",
-          boxShadow: "0 8px 20px rgba(0,0,0,0.15)"
+          boxShadow: "0 8px 20px rgba(0,0,0,0.15)",
+          width: "100%",
+          overflowX: "auto"
         }}>
           <h5>📊 Lead Status Distribution</h5>
-          <ResponsiveContainer width="100%" height={280}>
-            <PieChart>
-              <Pie
-                data={statusPieData}
-                dataKey="value"
-                nameKey="name"
-                outerRadius={100}
-                label
-              >
-                {statusPieData.map((entry, index) => (
-                  <Cell key={index} fill={STATUS_COLORS[entry.name]} />
-                ))}
-              </Pie>
+          <div style={{ minWidth: "300px", height: "280px" }}>
+            <ResponsiveContainer width="99%" height="100%">
+              <PieChart>
+                <Pie
+                  data={statusPieData}
+                  dataKey="value"
+                  nameKey="name"
+                  outerRadius={100}
+                  label
+                >
+                  {statusPieData.map((entry, index) => (
+                    <Cell key={index} fill={STATUS_COLORS[entry.name]} />
+                  ))}
+                </Pie>
 
-              <Tooltip />
+                <Tooltip />
 
-              <Legend
-                formatter={(value) => (
-                  <span style={{ color: "black", fontWeight: "600" }}>
-                    {value}
-                  </span>
-                )}
-              />
-            </PieChart>
-          </ResponsiveContainer>
+                <Legend
+                  formatter={(value) => (
+                    <span style={{ color: "black", fontWeight: "600" }}>
+                      {value}
+                    </span>
+                  )}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
       </div>
