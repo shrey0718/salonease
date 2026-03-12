@@ -16,3 +16,81 @@ body {
   background-repeat: repeat;
   background-attachment: fixed;
 }
+
+/* Mobile responsive improvements for screens ≤768px width */
+@media (max-width: 768px) {
+  /* Prevent horizontal scrolling & force entire site to fit phone screen */
+  html, body, #root {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+
+  /* Prevent any element from exceeding viewport width */
+  * {
+    box-sizing: border-box;
+    max-width: 100vw;
+  }
+
+  /* Force containers to max-width: 100% */
+  .container, .max-w-7xl, main, section {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    overflow-x: hidden !important;
+  }
+
+  /* Navbar items wrap or collapse neatly */
+  header, nav, .navbar {
+    flex-wrap: wrap !important;
+    width: 100% !important;
+  }
+
+  /* Footer must span full width */
+  footer {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* Stack grid items vertically */
+  .grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  /* Cards should stack vertically on mobile */
+  .card, [class*="card"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* Make images/video/canvas responsive and maintain aspect ratio */
+  img, video, canvas, iframe {
+    max-width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+
+  /* Charts should scale to 100% width */
+  .recharts-wrapper, 
+  .recharts-surface, 
+  .recharts-responsive-container, 
+  canvas[id*="chart"], 
+  [class*="chart"],
+  .chart-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Adjust font sizes slightly for readability */
+  h1 { font-size: 1.75rem !important; line-height: 1.2 !important; }
+  h2 { font-size: 1.5rem !important; line-height: 1.3 !important; }
+  h3 { font-size: 1.25rem !important; line-height: 1.4 !important; }
+  p { font-size: 1rem !important; line-height: 1.5 !important; }
+}
