@@ -207,3 +207,23 @@ body {
   h3 { font-size: 1.2rem !important;  line-height: 1.4 !important; }
   p  { font-size: 0.95rem !important; line-height: 1.5 !important; }
 }
+/* MOBILE FIXES ONLY */
+@media (max-width: 768px) {
+
+  .row {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .col-md-4,
+  .col-md-3 {
+    width: 100%;
+  }
+
+  .container {
+    max-width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+}
