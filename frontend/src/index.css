@@ -19,7 +19,7 @@ body {
 
 /* ============================================================
    MOBILE RESPONSIVE FIXES — screens ≤ 768px
-   Only overrides mobile layout. Desktop is untouched.
+   Only overrides mobile layout. Desktop is completely untouched.
    ============================================================ */
 @media (max-width: 768px) {
 
@@ -31,19 +31,16 @@ body {
   }
   * {
     box-sizing: border-box !important;
+    /* NOTE: Do NOT put max-width:100vw here — it breaks Recharts SVG internals */
   }
 
   /* ----- NAVBAR ----- */
-  /* The nav has display:flex justify-content:space-between.
-     On mobile we stack brand + links rows and let links scroll horizontally
-     inside the nav so they are never clipped. */
   nav {
     flex-direction: column !important;
     align-items: flex-start !important;
     padding: 10px 12px !important;
     gap: 8px !important;
   }
-  /* Links row: allow horizontal scroll so nothing is cut off */
   nav > div {
     display: flex !important;
     flex-wrap: wrap !important;
@@ -52,20 +49,17 @@ body {
     overflow-x: auto !important;
     padding-bottom: 4px !important;
   }
-  /* Shrink link buttons a bit on mobile */
   nav a, nav button {
     font-size: 13px !important;
     padding: 6px 10px !important;
     white-space: nowrap !important;
   }
-  /* Brand title */
   nav h3 {
     font-size: 22px !important;
     margin: 0 !important;
   }
 
   /* ----- GLOBAL CONTAINERS ----- */
-  /* Every page wraps content in a maxWidth div. Override it. */
   div[style*="maxWidth"], div[style*="max-width"] {
     max-width: 100% !important;
     width: 100% !important;
@@ -74,21 +68,14 @@ body {
   }
 
   /* ----- VIRTUAL TRY-ON — fix double camera ----- */
-  /* The component renders a <video> and a <canvas position:absolute> inside
-     a position:relative inline-block container.
-     On mobile the 500px wide container is wider than the screen so it overflows,
-     but the absolute canvas starts at left:12px making it appear beside the
-     video. We make the wrapper full-width and ensure canvas overlays correctly. */
-  div[style*="position: \"relative\""],
-  div[style*="position:relative"],
-  div[style*="display: \"inline-block\""],
-  div[style*="display:inline-block"] {
+  /* Wrapper: inline-block 500px wide → must become full-width block */
+  div[style*="inline-block"] {
     display: block !important;
     width: 100% !important;
     max-width: 100% !important;
     position: relative !important;
   }
-  /* Video: full width, auto height, maintain ratio */
+  /* Video: full-width, preserve 4:3 ratio */
   video {
     width: 100% !important;
     max-width: 100% !important;
@@ -96,13 +83,14 @@ body {
     aspect-ratio: 4/3 !important;
     display: block !important;
   }
-  /* Canvas overlay: must be same size as video and truly overlap it */
+  /* Canvas overlay: overlap the video perfectly.
+     IMPORTANT: Only apply to non-chart canvases (TryOn overlay).
+     Recharts uses SVG not canvas, so this is safe. */
   canvas {
     width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
     aspect-ratio: 4/3 !important;
-    /* Keep absolutely positioned canvas on top of video */
     left: 0 !important;
     top: 0 !important;
     right: 0 !important;
@@ -111,11 +99,9 @@ body {
   /* ----- IMAGES ----- */
   img {
     max-width: 100% !important;
-    height: auto !important;
   }
 
   /* ----- PRODUCTS PAGE (Admin) — Bootstrap row/col ----- */
-  /* .row uses flexbox; .col-md-4 has flex: 0 0 33%. Override to full width. */
   .row {
     margin-left: 0 !important;
     margin-right: 0 !important;
@@ -129,14 +115,8 @@ body {
     padding-right: 0 !important;
   }
 
-  /* ----- CUSTOMER PRODUCTS PAGE — inline grid (repeat 3, 1fr) ----- */
-  /* ProductsPublic.jsx uses style={{ gridTemplateColumns:"repeat(3,1fr)" }}
-     We cannot target inline styles directly, so we target the grid containers
-     by their known structural relationship. */
+  /* ----- CUSTOMER PRODUCTS PAGE — inline grid repeat(3) ----- */
   div[style*="repeat(3"] {
-    grid-template-columns: 1fr !important;
-  }
-  div[style*="repeat(3,"] {
     grid-template-columns: 1fr !important;
   }
 
@@ -144,32 +124,74 @@ body {
   div[style*="repeat(4"] {
     grid-template-columns: 1fr 1fr !important;
   }
-  div[style*="repeat(4,"] {
-    grid-template-columns: 1fr 1fr !important;
-  }
   div[style*="repeat(5"] {
-    grid-template-columns: 1fr 1fr !important;
-  }
-  div[style*="repeat(5,"] {
     grid-template-columns: 1fr 1fr !important;
   }
 
   /* ----- DASHBOARD CARDS — inline grid 1fr 1fr ----- */
-  /* Home.jsx: gridTemplateColumns:"1fr 1fr". Fine on tablet, cramped on phone */
   div[style*="1fr 1fr"] {
     grid-template-columns: 1fr !important;
   }
 
-  /* ----- FOOTER ----- */
-  footer {
+  /* ----- CART PAGE — Table fix ----- */
+  /* The cart uses a <table> with 5 columns: Product, Price, Qty, Subtotal, Remove.
+     Tables don't reflow on mobile — we make the wrapper scrollable horizontally
+     so nothing overlaps or overrides each other. */
+  div[style*="maxWidth: \"1000px\""],
+  div[style*="maxWidth:\"1000px\""] {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  /* Make all table content readable with adequate min-widths */
+  table {
+    min-width: 520px !important;
     width: 100% !important;
-    max-width: 100% !important;
+    font-size: 13px !important;
+  }
+  th, td {
+    padding: 8px 6px !important;
+    white-space: nowrap !important;
+  }
+  /* Cart summary (Total + Checkout button) — full width on mobile */
+  div[style*="maxWidth: \"1000px\""] ~ div,
+  div[style*="textAlign: \"right\""] {
+    text-align: center !important;
+    padding: 0 12px !important;
   }
 
-  /* ----- CHARTS (Recharts) ----- */
-  .recharts-wrapper,
-  .recharts-surface,
+  /* ----- ANALYTICS PAGE — Charts fix ----- */
+  /* Recharts ResponsiveContainer sets width/height via JS. 
+     The issue is our previous rule set canvas height:auto which collapses
+     the chart area. We DO NOT touch SVG or recharts internals with height.
+     Only ensure the wrapper divs are full-width. */
+  .recharts-wrapper {
+    width: 100% !important;
+    /* Do NOT set height — Recharts controls this via JS */
+  }
   .recharts-responsive-container {
+    width: 100% !important;
+    min-height: 200px !important;
+  }
+  /* Recharts SVG: allow it to scale freely */
+  .recharts-wrapper svg,
+  .recharts-surface {
+    width: 100% !important;
+    overflow: visible !important;
+  }
+  /* Prevent outer analytics card divs from overflowing */
+  div[style*="maxWidth: \"1000px\""] {
+    max-width: 100% !important;
+    width: 100% !important;
+    overflow-x: hidden !important;
+  }
+  /* Analytics top stat cards: make them 2-column grid on mobile */
+  div[style*="background: \"#fdebed\""][style*="height: \"120px\""] {
+    height: auto !important;
+    padding: 14px !important;
+  }
+
+  /* ----- FOOTER ----- */
+  footer {
     width: 100% !important;
     max-width: 100% !important;
   }
@@ -180,4 +202,3 @@ body {
   h3 { font-size: 1.2rem !important;  line-height: 1.4 !important; }
   p  { font-size: 0.95rem !important; line-height: 1.5 !important; }
 }
-
