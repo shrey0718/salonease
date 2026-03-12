@@ -17,80 +17,167 @@ body {
   background-attachment: fixed;
 }
 
-/* Mobile responsive improvements for screens ≤768px width */
+/* ============================================================
+   MOBILE RESPONSIVE FIXES — screens ≤ 768px
+   Only overrides mobile layout. Desktop is untouched.
+   ============================================================ */
 @media (max-width: 768px) {
-  /* Prevent horizontal scrolling & force entire site to fit phone screen */
+
+  /* ----- BASE: kill horizontal scroll everywhere ----- */
   html, body, #root {
     overflow-x: hidden !important;
     width: 100% !important;
     max-width: 100vw !important;
   }
-
-  /* Prevent any element from exceeding viewport width */
   * {
-    box-sizing: border-box;
-    max-width: 100vw;
+    box-sizing: border-box !important;
   }
 
-  /* Force containers to max-width: 100% */
-  .container, .max-w-7xl, main, section {
+  /* ----- NAVBAR ----- */
+  /* The nav has display:flex justify-content:space-between.
+     On mobile we stack brand + links rows and let links scroll horizontally
+     inside the nav so they are never clipped. */
+  nav {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 10px 12px !important;
+    gap: 8px !important;
+  }
+  /* Links row: allow horizontal scroll so nothing is cut off */
+  nav > div {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    padding-bottom: 4px !important;
+  }
+  /* Shrink link buttons a bit on mobile */
+  nav a, nav button {
+    font-size: 13px !important;
+    padding: 6px 10px !important;
+    white-space: nowrap !important;
+  }
+  /* Brand title */
+  nav h3 {
+    font-size: 22px !important;
+    margin: 0 !important;
+  }
+
+  /* ----- GLOBAL CONTAINERS ----- */
+  /* Every page wraps content in a maxWidth div. Override it. */
+  div[style*="maxWidth"], div[style*="max-width"] {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  /* ----- VIRTUAL TRY-ON — fix double camera ----- */
+  /* The component renders a <video> and a <canvas position:absolute> inside
+     a position:relative inline-block container.
+     On mobile the 500px wide container is wider than the screen so it overflows,
+     but the absolute canvas starts at left:12px making it appear beside the
+     video. We make the wrapper full-width and ensure canvas overlays correctly. */
+  div[style*="position: \"relative\""],
+  div[style*="position:relative"],
+  div[style*="display: \"inline-block\""],
+  div[style*="display:inline-block"] {
+    display: block !important;
     width: 100% !important;
     max-width: 100% !important;
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-    overflow-x: hidden !important;
+    position: relative !important;
   }
-
-  /* Navbar items wrap or collapse neatly */
-  header, nav, .navbar {
-    flex-wrap: wrap !important;
+  /* Video: full width, auto height, maintain ratio */
+  video {
     width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 4/3 !important;
+    display: block !important;
+  }
+  /* Canvas overlay: must be same size as video and truly overlap it */
+  canvas {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 4/3 !important;
+    /* Keep absolutely positioned canvas on top of video */
+    left: 0 !important;
+    top: 0 !important;
+    right: 0 !important;
   }
 
-  /* Footer must span full width */
+  /* ----- IMAGES ----- */
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* ----- PRODUCTS PAGE (Admin) — Bootstrap row/col ----- */
+  /* .row uses flexbox; .col-md-4 has flex: 0 0 33%. Override to full width. */
+  .row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    flex-wrap: wrap !important;
+  }
+  .col-md-4, .col-md-3, .col-md-6, .col-md-8, .col-md-12,
+  [class^="col-"], [class*=" col-"] {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* ----- CUSTOMER PRODUCTS PAGE — inline grid (repeat 3, 1fr) ----- */
+  /* ProductsPublic.jsx uses style={{ gridTemplateColumns:"repeat(3,1fr)" }}
+     We cannot target inline styles directly, so we target the grid containers
+     by their known structural relationship. */
+  div[style*="repeat(3"] {
+    grid-template-columns: 1fr !important;
+  }
+  div[style*="repeat(3,"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ----- CLASSES PAGE — inline grids repeat(4) and repeat(5) ----- */
+  div[style*="repeat(4"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  div[style*="repeat(4,"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  div[style*="repeat(5"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  div[style*="repeat(5,"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* ----- DASHBOARD CARDS — inline grid 1fr 1fr ----- */
+  /* Home.jsx: gridTemplateColumns:"1fr 1fr". Fine on tablet, cramped on phone */
+  div[style*="1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ----- FOOTER ----- */
   footer {
     width: 100% !important;
     max-width: 100% !important;
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
   }
 
-  /* Stack grid items vertically */
-  .grid {
-    grid-template-columns: 1fr !important;
-    gap: 1.5rem !important;
-  }
-
-  /* Cards should stack vertically on mobile */
-  .card, [class*="card"] {
+  /* ----- CHARTS (Recharts) ----- */
+  .recharts-wrapper,
+  .recharts-surface,
+  .recharts-responsive-container {
     width: 100% !important;
     max-width: 100% !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
   }
 
-  /* Make images/video/canvas responsive and maintain aspect ratio */
-  img, video, canvas, iframe {
-    max-width: 100% !important;
-    height: auto !important;
-    object-fit: contain !important;
-  }
-
-  /* Charts should scale to 100% width */
-  .recharts-wrapper, 
-  .recharts-surface, 
-  .recharts-responsive-container, 
-  canvas[id*="chart"], 
-  [class*="chart"],
-  .chart-container {
-    width: 100% !important;
-    max-width: 100% !important;
-    height: auto !important;
-  }
-
-  /* Adjust font sizes slightly for readability */
+  /* ----- TYPOGRAPHY ----- */
   h1 { font-size: 1.75rem !important; line-height: 1.2 !important; }
-  h2 { font-size: 1.5rem !important; line-height: 1.3 !important; }
-  h3 { font-size: 1.25rem !important; line-height: 1.4 !important; }
-  p { font-size: 1rem !important; line-height: 1.5 !important; }
+  h2 { font-size: 1.4rem !important;  line-height: 1.3 !important; }
+  h3 { font-size: 1.2rem !important;  line-height: 1.4 !important; }
+  p  { font-size: 0.95rem !important; line-height: 1.5 !important; }
 }
+
