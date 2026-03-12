@@ -227,3 +227,16 @@ body {
   }
 
 }
+/* MOBILE TABLE FIX (Product Leads / Class Leads) */
+@media (max-width: 768px) {
+
+  table {
+    min-width: 600px;
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+}

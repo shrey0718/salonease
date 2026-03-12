@@ -84,8 +84,17 @@ export default function ClassLeads() {
     l.category?.toLowerCase().includes("skin")
   );
 
-  const renderTable = (data) => (
-    <table className="table" style={{ background: "#fdebed" }}>
+const renderTable = (data) => (
+  <div style={{ overflowX: "auto", width: "100%" }}>
+
+    <table
+      className="table"
+      style={{
+        background: "#fdebed",
+        minWidth: "650px"
+      }}
+    >
+
       <thead>
         <tr style={{ background: "#f3b3b6", color: "white" }}>
           <th>Name</th>
@@ -96,14 +105,19 @@ export default function ClassLeads() {
           <th>Delete</th>
         </tr>
       </thead>
+
       <tbody>
+
         {data.map(lead => (
+
           <tr key={lead._id}>
+
             <td>{lead.name}</td>
             <td>{lead.phone}</td>
             <td>{lead.course}</td>
 
             <td>
+
               <select
                 className="form-select"
                 value={lead.status}
@@ -111,27 +125,40 @@ export default function ClassLeads() {
                   updateStatus(lead._id, e.target.value)
                 }
               >
+
                 <option>Interested</option>
                 <option>Registered</option>
                 <option>Completed</option>
+
               </select>
+
             </td>
 
-            <td>{new Date(lead.date).toLocaleDateString()}</td>
+            <td>
+              {new Date(lead.date).toLocaleDateString()}
+            </td>
 
             <td>
+
               <button
                 className="btn btn-danger btn-sm"
                 onClick={() => deleteLead(lead._id)}
               >
                 Delete
               </button>
+
             </td>
+
           </tr>
+
         ))}
+
       </tbody>
+
     </table>
-  );
+
+  </div>
+);
 
   return (
     <div style={{ minHeight: "100vh", background: "#f3b3b6", paddingTop: "70px" }}>

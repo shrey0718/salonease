@@ -158,12 +158,15 @@ export default function ProductLeads() {
 
   const renderTable = (data) => (
 
+  <div style={{ overflowX: "auto", width: "100%" }}>
+
     <table
       className="table"
       style={{
         background: "#fdebed",
         borderRadius: "12px",
-        overflow: "hidden"
+        overflow: "hidden",
+        minWidth: "650px"   // prevents cutting columns
       }}
     >
 
@@ -235,7 +238,9 @@ export default function ProductLeads() {
 
     </table>
 
-  );
+  </div>
+
+);
 
 
 
