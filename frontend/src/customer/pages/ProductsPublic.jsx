@@ -16,13 +16,18 @@ export default function ProductsPublic() {
     phone: ""
   });
 
-  useEffect(() => {
-    fetch("https://salonease-backend-qn1t.onrender.com/products")
-      .then(res => res.json())
-      .then(data => setProducts(data))
-      .catch(err => console.log(err));
-  }, []);
+ useEffect(() => {
 
+  fetch("https://salonease-backend-qn1t.onrender.com/products?time=" + Date.now())
+    .then(res => res.json())
+    .then(data => {
+      setProducts(data);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
+}, []);
   const uniqueProducts = products.filter(
     (v, i, a) => a.findIndex(t => t.name === v.name) === i
   );
